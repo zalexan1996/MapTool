@@ -3,7 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapTool.Data", "MapTool.Data\MapTool.Data.csproj", "{0CE126FD-40CB-41DB-A6CE-C8D88B8FCF54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapTool.Client", "MapTool.Client\MapTool.Client.csproj", "{64F5D32E-3868-4726-805F-AAF2E869F972}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapTool.Core", "MapTool.Core\MapTool.Core.csproj", "{69869A30-4FAD-42E3-81E2-BF340DCB7913}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CE126FD-40CB-41DB-A6CE-C8D88B8FCF54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CE126FD-40CB-41DB-A6CE-C8D88B8FCF54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CE126FD-40CB-41DB-A6CE-C8D88B8FCF54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CE126FD-40CB-41DB-A6CE-C8D88B8FCF54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64F5D32E-3868-4726-805F-AAF2E869F972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64F5D32E-3868-4726-805F-AAF2E869F972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64F5D32E-3868-4726-805F-AAF2E869F972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64F5D32E-3868-4726-805F-AAF2E869F972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69869A30-4FAD-42E3-81E2-BF340DCB7913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69869A30-4FAD-42E3-81E2-BF340DCB7913}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69869A30-4FAD-42E3-81E2-BF340DCB7913}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69869A30-4FAD-42E3-81E2-BF340DCB7913}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
