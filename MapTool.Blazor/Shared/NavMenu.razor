@@ -1,0 +1,66 @@
+﻿@inject IDatabaseManagementService _dbService;
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Map Editor</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="ChooseDatabase" Match="NavLinkMatch.All">
+                <span class="oi oi-plus" aria-hidden="true"></span> Choose Database
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="ChooseProject" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Choose Project
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="TilesheetEditor">
+                <span class="oi oi-grid-three-up" aria-hidden="true"></span> Tilesheets
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="AnimatedTileEditor">
+                <span class="oi oi-spreadsheet" aria-hidden="true"></span> Animated Tiles
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="PrefabEditor">
+                <span class="oi oi-home" aria-hidden="true"></span> Prefabs
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="MapEditor">
+                <span class="oi oi-image" aria-hidden="true"></span> Map Editor
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private async void OnNewDatabase()
+    {
+        
+    }
+
+    private async void OnImportDatabase()
+    {
+
+    }
+}
