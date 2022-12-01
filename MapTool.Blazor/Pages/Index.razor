@@ -1,0 +1,66 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h3>Map Editor</h3>
+
+<blockquote>Facilitates creating a map from tilesheets. Contains a shared class library for importing and working with data from the db.</blockquote>
+
+<ul>
+    <li><b>Project</b> - A collection of maps. Represents one .db file.</li>
+    <li><b>Map</b> - a group of tiles laid out. Contains visual and logic information as well as links to other maps</li>
+    <li><b>Tilesheet</b> - an imported image with parameters on dividing it into tiles</li>
+    <li><b>Tile</b> - an individual image in a tilesheet. Has its own default properties</li>
+    <li><b>Utility tiles</b> - a type of tile used for game logic. There are many types of utility tiles.</li>
+    <li><b>Animated Tile</b> - a collection of tiles that are presented as an animation.</li>
+    <li><b>Prefab</b> - a collection of tiles that form a copy-pastable shape</li>
+</ul>
+
+
+<h3>Criteria</h3>
+<ol>
+    <li>A Project can contain multiple Maps, and multiple tilesheets.</li>
+    <li>Each map can be categorized.</li>
+    <li>In the editor, multiple maps can be shown in a grid form if necessary.</li>
+    <li>Each map has a property sheet
+        <ol>
+            <li>Name</li>
+            <li>Description</li>
+            <li>Tags</li>
+            <li>X Grid Position</li>
+            <li>Y Grid Position</li>
+            <li>Width in Tiles (Query)</li>
+            <li>Height in Tiles (Query)</li>
+            <li>Environment Variables</li>
+        </ol>
+    </li>
+    <li>A map contains environmental variables that can change which tiles are displayed or active</li>
+    <li>A map can contain multiple tilesheets</li>
+    <li>A map contains utility tiles for collision, spawn cues, links to other maps, etc</li>
+    <li>A tilesheet is broken down into tiles</li>
+    <li>Tilesheets can be grouped together into Collections</li>
+    <li>Tiles can be grouped together into Palettes for easy drawing</li>
+    <li>Tiles, and utility tiles, can be placed and saved as a Prefab</li>
+    <li>A Prefab has a property sheet
+        <ol>
+            <li>Name</li>
+            <li>Description</li>
+            <li>Tags</li>
+        </ol>
+    </li>
+    <li>Once a Prefab is placed, you can override individual tiles for it and it preserves the tile as part of the prefab. You can even remove and add new tiles to that instance of the prefab</li>
+    <li>Each tile can have its own collision information</li>
+    <li>Each tile has a default alpha level that can be overriden when placed in the map</li>
+    <li>Each tile has a layer value from -99 to 99. It's assumed, but not required that the player be on layer 0.</li>
+    <li>You can group multiple times into an AnimatedTile, and specify the following properties for it
+        <ol>
+            <li>Name</li>
+            <li>Description</li>
+            <li>Tags</li>
+            <li>Animation Speed</li>
+            <li>Animation Delay</li>
+            <li>Random Mutation</li>
+            <li>EnabledWhen (environmental variable reference)</li>
+        </ol>
+    </li>
+</ol>
