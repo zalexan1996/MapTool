@@ -11,7 +11,7 @@ namespace MapTool.Domain.Types
     /// <summary>
     /// The project information. There will only be one of these per database.
     /// </summary>
-    public class Project : IKeyedEntity, IInformationEntity
+    public class ProjectDto : IKeyedEntity, IInformationEntity
     {
         /// <inheritdoc/>
         public int Id { get; set; }
@@ -35,21 +35,21 @@ namespace MapTool.Domain.Types
         /// <summary>
         /// All the maps that are a part of this project.
         /// </summary>
-        public Collection<Map> Maps { get; set; } = new();
+        public Collection<MapDto> Maps { get; set; } = new();
 
         /// <summary>
         /// All tilesheets used in this project.
         /// </summary>
-        public Collection<Tilesheet> Tilesheets { get; set; } = new();
+        public Collection<TilesheetDto> Tilesheets { get; set; } = new();
 
         /// <summary>
         /// All prefabs used in this project.
         /// </summary>
-        public Collection<Prefab> Prefabs { get; set; } = new();
+        public Collection<PrefabDto> Prefabs { get; set; } = new();
 
         /// <summary>
         /// All tile palettes used in this project.
         /// </summary>
-        public Collection<Palette> Palettes { get; set; } = new();
+        public Collection<PaletteDto> Palettes { get; set; } = new();
     }
 }

@@ -9,7 +9,7 @@ namespace MapTool.Domain.Types.UtilityTiles
     /// <summary>
     /// A type of tile used to convey asset spawning information.
     /// </summary>
-    public class SpawnerTile : Tile
+    public class SpawnerTileDto : TileDto
     {
         /// <summary>
         /// The type of asset this tile is used to spawn.

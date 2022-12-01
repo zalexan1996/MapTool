@@ -11,7 +11,7 @@ namespace MapTool.Domain.Types
     /// <summary>
     /// A map. Contains a collection of TilePlacement items.
     /// </summary>
-    public class Map : ITileRecipient, IKeyedEntity, IInformationEntity
+    public class MapDto : ITileRecipient, IKeyedEntity, IInformationEntity
     {
         /// <inheritdoc/>
         public int Id { get; set; }
@@ -24,11 +24,11 @@ namespace MapTool.Domain.Types
         /// <summary>
         /// Tags used to provide queryable information about this map.
         /// </summary>
-        public Collection<Tag> Tags { get; set; } = new Collection<Tag>();
+        public Collection<TagDto> Tags { get; set; } = new Collection<TagDto>();
 
         /// <summary>
         /// The tile placements in this map. Contains both visual tiles and utility tiles.
         /// </summary>
-        public Collection<TilePlacement> TilePlacements { get; set; } = new();
+        public Collection<TilePlacementDto> TilePlacements { get; set; } = new();
     }
 }

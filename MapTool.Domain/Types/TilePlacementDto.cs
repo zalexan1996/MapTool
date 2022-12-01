@@ -11,7 +11,7 @@ namespace MapTool.Domain.Types
     /// <summary>
     /// Represents a tile placement in a map or a prefab.
     /// </summary>
-    public class TilePlacement : IKeyedEntity
+    public class TilePlacementDto : IKeyedEntity
     {
         /// <inheritdoc/>
         public int Id { get; set; }
@@ -19,7 +19,7 @@ namespace MapTool.Domain.Types
         /// <summary>
         /// The reference to the tile.
         /// </summary>
-        public Tile Tile { get; set; }
+        public TileDto Tile { get; set; }
 
         /// <summary>
         /// The foreign key id for the Tile.
@@ -58,7 +58,7 @@ namespace MapTool.Domain.Types
         /// <summary>
         /// Tags used to provide queryable information about this Tile Placement.
         /// </summary>
-        public Collection<Tag> Tags { get; set; } = new();
+        public Collection<TagDto> Tags { get; set; } = new();
 
         /// <summary>
         /// Additional JSON information used to convey logic about this tile.

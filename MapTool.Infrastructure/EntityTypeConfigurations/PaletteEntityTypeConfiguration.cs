@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace MapTool.Infrastructure.EntityTypeConfigurations
 {
-    public class PaletteEntityTypeConfiguration : IEntityTypeConfiguration<Palette>
+    public class PaletteEntityTypeConfiguration : IEntityTypeConfiguration<PaletteDto>
     {
-        public void Configure(EntityTypeBuilder<Palette> builder)
+        public void Configure(EntityTypeBuilder<PaletteDto> builder)
         {
+            builder.ToTable("Palettes");
             InfrastructureExtensionMethods.ConfigureKeyedEntity(builder);
             InfrastructureExtensionMethods.ConfigureInformationEntity(builder);
 

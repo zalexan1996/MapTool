@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace MapTool.Infrastructure.EntityTypeConfigurations
 {
-    public class TagEntityTypeConfiguration : IEntityTypeConfiguration<Tag>
+    public class TagEntityTypeConfiguration : IEntityTypeConfiguration<TagDto>
     {
-        public void Configure(EntityTypeBuilder<Tag> builder)
+        public void Configure(EntityTypeBuilder<TagDto> builder)
         {
+            builder.ToTable("Tags");
             InfrastructureExtensionMethods.ConfigureKeyedEntity(builder);
             InfrastructureExtensionMethods.ConfigureInformationEntity(builder);
         }

@@ -10,12 +10,13 @@ using System.Threading.Tasks;
 
 namespace MapTool.Infrastructure.EntityTypeConfigurations
 {
-    public class TileEntityTypeConfiguration : IEntityTypeConfiguration<Tile>
+    public class TileEntityTypeConfiguration : IEntityTypeConfiguration<TileDto>
     {
-        public void Configure(EntityTypeBuilder<Tile> builder)
+        public void Configure(EntityTypeBuilder<TileDto> builder)
         {
+            builder.ToTable("Tiles");
             InfrastructureExtensionMethods.ConfigureKeyedEntity(builder);
-            builder.ToTable(nameof(Tile));
+            builder.ToTable(nameof(TileDto));
 
             builder.Property(x => x.StartX).IsRequired();
             builder.Property(x => x.StartY).IsRequired();

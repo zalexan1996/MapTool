@@ -9,12 +9,12 @@ namespace MapTool.Domain.Types.UtilityTiles
     /// <summary>
     /// A type of tile used for connecting two maps together (door, edge of map transition).
     /// </summary>
-    public class MapBridgeTile : Tile
+    public class MapBridgeTileDto : TileDto
     {
         /// <summary>
         /// The map this tile is a gateway to.
         /// </summary>
-        public Map DestinationMap { get; set; }
+        public MapDto DestinationMap { get; set; }
 
         /// <summary>
         /// The foreign key id of the DestinationMap.

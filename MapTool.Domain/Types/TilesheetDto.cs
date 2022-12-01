@@ -11,7 +11,7 @@ namespace MapTool.Domain.Types
     /// <summary>
     /// Represents a tilesheet asset.
     /// </summary>
-    public class Tilesheet : IKeyedEntity, IInformationEntity
+    public class TilesheetDto : IKeyedEntity, IInformationEntity
     {
         /// <inheritdoc/>
         public int Id { get; set; }
@@ -30,6 +30,6 @@ namespace MapTool.Domain.Types
         /// <summary>
         /// The collection of tiles generated from the tilesheet asset.
         /// </summary>
-        public Collection<Tile> Tiles { get; set; }
+        public Collection<TileDto> Tiles { get; set; }
     }
 }

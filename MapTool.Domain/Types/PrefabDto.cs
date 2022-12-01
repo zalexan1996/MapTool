@@ -11,7 +11,7 @@ namespace MapTool.Domain.Types
     /// <summary>
     /// A collection of tiles arranged to form a re-usable shape.
     /// </summary>
-    public class Prefab : ITileRecipient, IKeyedEntity, IInformationEntity
+    public class PrefabDto : ITileRecipient, IKeyedEntity, IInformationEntity
     {
         /// <inheritdoc/>
         public int Id { get; set; }
@@ -25,11 +25,11 @@ namespace MapTool.Domain.Types
         /// <summary>
         /// Tags used to provide queryable information about this prefab.
         /// </summary>
-        public Collection<Tag> Tags { get; set; } = new();
+        public Collection<TagDto> Tags { get; set; } = new();
 
         /// <summary>
         /// The collection of tile placements for this prefab.
         /// </summary>
-        public Collection<TilePlacement> TilePlacements { get; set; } = new();
+        public Collection<TilePlacementDto> TilePlacements { get; set; } = new();
     }
 }

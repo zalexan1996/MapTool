@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace MapTool.Infrastructure.EntityTypeConfigurations
 {
-    public class PrefabEntityTypeConfiguration : IEntityTypeConfiguration<Prefab>
+    public class PrefabEntityTypeConfiguration : IEntityTypeConfiguration<PrefabDto>
     {
-        public void Configure(EntityTypeBuilder<Prefab> builder)
+        public void Configure(EntityTypeBuilder<PrefabDto> builder)
         {
+            builder.ToTable("Prefabs");
             InfrastructureExtensionMethods.ConfigureKeyedEntity(builder);
             InfrastructureExtensionMethods.ConfigureInformationEntity(builder);
 

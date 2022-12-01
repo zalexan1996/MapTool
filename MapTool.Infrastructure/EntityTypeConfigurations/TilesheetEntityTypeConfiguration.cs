@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace MapTool.Infrastructure.EntityTypeConfigurations
 {
-    public class TilesheetEntityTypeConfiguration : IEntityTypeConfiguration<Tilesheet>
+    public class TilesheetEntityTypeConfiguration : IEntityTypeConfiguration<TilesheetDto>
     {
-        public void Configure(EntityTypeBuilder<Tilesheet> builder)
+        public void Configure(EntityTypeBuilder<TilesheetDto> builder)
         {
+            builder.ToTable("Tilesheets");
             InfrastructureExtensionMethods.ConfigureKeyedEntity(builder);
             InfrastructureExtensionMethods.ConfigureInformationEntity(builder);
 

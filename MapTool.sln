@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapTool.Domain", "MapTool.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapTool.Core", "MapTool.Core\MapTool.Core.csproj", "{DBE9E5AF-7EFE-4341-81E3-7DED2974C838}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapTool.Tests", "MapTool.Tests\MapTool.Tests.csproj", "{99C37F5D-97DF-4989-B50E-716AC48E7E91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapTool.Tests", "MapTool.Tests\MapTool.Tests.csproj", "{99C37F5D-97DF-4989-B50E-716AC48E7E91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapTool.Desktop", "MapTool.Desktop\MapTool.Desktop.csproj", "{7A46C4AF-6F8E-4C2E-953B-77E61329C418}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapTool.Desktop", "MapTool.Desktop\MapTool.Desktop.csproj", "{7A46C4AF-6F8E-4C2E-953B-77E61329C418}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapTool.Blazor", "MapTool.Blazor\MapTool.Blazor.csproj", "{2B5E2A5D-21E8-4184-9F85-FC7BE73DB628}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapTool.Blazor", "MapTool.Blazor\MapTool.Blazor.csproj", "{2B5E2A5D-21E8-4184-9F85-FC7BE73DB628}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

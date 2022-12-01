@@ -12,7 +12,7 @@ namespace MapTool.Domain.Types
     /// A tile consisting of multiple tiles with default animation values.
     /// It's up to the caller to do what they wish with the animation settings.
     /// </summary>
-    public class AnimatedTile : ITile, IKeyedEntity, IInformationEntity
+    public class AnimatedTileDto : ITile, IKeyedEntity, IInformationEntity
     {
         /// <inheritdoc/>
         public int Id { get; set; }
@@ -26,7 +26,7 @@ namespace MapTool.Domain.Types
         /// <summary>
         /// The tiles used in this animation. The order matters.
         /// </summary>
-        public Collection<Tile> Tiles { get; set; } = new();
+        public Collection<TileDto> Tiles { get; set; } = new();
 
         /// <summary>
         /// The suggested animation playback speed.

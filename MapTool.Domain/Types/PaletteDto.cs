@@ -11,7 +11,7 @@ namespace MapTool.Domain.Types
     /// <summary>
     /// A collection of tiles used like a color palette in map creation.
     /// </summary>
-    public class Palette : IKeyedEntity, IInformationEntity
+    public class PaletteDto : IKeyedEntity, IInformationEntity
     {
         /// <inheritdoc/>
         public int Id { get; set; }
@@ -25,6 +25,6 @@ namespace MapTool.Domain.Types
         /// <summary>
         /// The tiles used in this palette. Can be visual tiles or utility tiles.
         /// </summary>
-        public Collection<Tile> Tiles { get; set; } = new();
+        public Collection<TileDto> Tiles { get; set; } = new();
     }
 }

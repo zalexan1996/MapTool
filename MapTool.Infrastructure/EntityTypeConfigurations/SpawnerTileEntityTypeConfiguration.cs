@@ -4,12 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MapTool.Infrastructure.EntityTypeConfigurations
 {
-    public class SpawnerTileEntityTypeConfiguration : IEntityTypeConfiguration<SpawnerTile>
+    public class SpawnerTileEntityTypeConfiguration : IEntityTypeConfiguration<SpawnerTileDto>
     {
-        public void Configure(EntityTypeBuilder<SpawnerTile> builder)
+        public void Configure(EntityTypeBuilder<SpawnerTileDto> builder)
         {
+            builder.ToTable("SpawnerTiles");
             // InfrastructureExtensionMethods.ConfigureKeyedEntity(builder);
-            builder.ToTable(nameof(SpawnerTile));
+            builder.ToTable(nameof(SpawnerTileDto));
 
             builder.Property(x => x.StartY).IsRequired();
             builder.Property(x => x.StartX).IsRequired();

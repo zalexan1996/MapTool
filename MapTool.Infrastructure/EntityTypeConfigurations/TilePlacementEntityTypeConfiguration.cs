@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace MapTool.Infrastructure.EntityTypeConfigurations
 {
-    public class TilePlacementEntityTypeConfiguration : IEntityTypeConfiguration<TilePlacement>
+    public class TilePlacementEntityTypeConfiguration : IEntityTypeConfiguration<TilePlacementDto>
     {
-        public void Configure(EntityTypeBuilder<TilePlacement> builder)
+        public void Configure(EntityTypeBuilder<TilePlacementDto> builder)
         {
+            builder.ToTable("TilePlacements");
             InfrastructureExtensionMethods.ConfigureKeyedEntity(builder);
 
             builder.Property(x => x.X).IsRequired();

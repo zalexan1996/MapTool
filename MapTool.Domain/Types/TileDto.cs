@@ -10,7 +10,7 @@ namespace MapTool.Domain.Types
     /// <summary>
     /// The base tile class representing a tile from a tile sheet.
     /// </summary>
-    public class Tile : ITile, IKeyedEntity
+    public class TileDto : ITile, IKeyedEntity
     {
         /// <inheritdoc/>
         public int Id { get; set; }
@@ -18,7 +18,7 @@ namespace MapTool.Domain.Types
         /// <summary>
         /// The reference to the tile sheet that this tile is a part of.
         /// </summary>
-        public Tilesheet Tilesheet { get; set; }
+        public TilesheetDto Tilesheet { get; set; }
 
         /// <summary>
         /// The foreign key id of the Tilesheet.

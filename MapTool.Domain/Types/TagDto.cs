@@ -11,7 +11,7 @@ namespace MapTool.Domain.Types
     /// A tag that can be assigned to a map, tilesheet, tile, etc. to categorize it.
     /// Think overworld, water, cave, house, enemySpawn, soundCue, Bob, etc.
     /// </summary>
-    public class Tag : IKeyedEntity, IInformationEntity
+    public class TagDto : IKeyedEntity, IInformationEntity
     {
         /// <inheritdoc/>
         public int Id { get; set; }

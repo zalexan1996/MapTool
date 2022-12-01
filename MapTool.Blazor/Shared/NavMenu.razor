@@ -1,4 +1,6 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@inject IDatabaseManagementService _dbService;
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Map Editor</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -9,6 +11,11 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="ChooseDatabase" Match="NavLinkMatch.All">
+                <span class="oi oi-plus" aria-hidden="true"></span> Choose Database
+            </NavLink>
+        </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="ChooseProject" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Choose Project
@@ -45,5 +52,15 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private async void OnNewDatabase()
+    {
+        
+    }
+
+    private async void OnImportDatabase()
+    {
+
     }
 }

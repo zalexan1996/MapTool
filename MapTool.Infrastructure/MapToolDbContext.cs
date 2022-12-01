@@ -11,38 +11,52 @@ namespace MapTool.Infrastructure
 {
     public interface IMapToolDbContext
     {
-        public DbSet<Tile> Tiles { get; set; }
-        public DbSet<MapBridgeTile> MapBridgeTiles { get; set; }
-        public DbSet<SpawnerTile> SpawnerTiles { get; set; }
-        public DbSet<AnimatedTile> AnimatedTiles { get; set; }
-        public DbSet<Map> Maps { get; set; }
-        public DbSet<Palette> Palettes { get; set; }
-        public DbSet<Prefab> Prefabs { get; set; }
-        public DbSet<Project> Projects { get; set; }
-        public DbSet<Tag> Tags { get; set; }
-        public DbSet<TilePlacement> TilePlacements { get; set; }
-        public DbSet<Tilesheet> Tilesheets { get; set; }
+        public DbSet<TileDto> Tiles { get; set; }
+        public DbSet<MapBridgeTileDto> MapBridgeTiles { get; set; }
+        public DbSet<SpawnerTileDto> SpawnerTiles { get; set; }
+        public DbSet<AnimatedTileDto> AnimatedTiles { get; set; }
+        public DbSet<MapDto> Maps { get; set; }
+        public DbSet<PaletteDto> Palettes { get; set; }
+        public DbSet<PrefabDto> Prefabs { get; set; }
+        public DbSet<ProjectDto> Projects { get; set; }
+        public DbSet<TagDto> Tags { get; set; }
+        public DbSet<TilePlacementDto> TilePlacements { get; set; }
+        public DbSet<TilesheetDto> Tilesheets { get; set; }
 
         public bool SaveChanges();
+        public void DisposeAsync();
         public Task<bool> SaveChangesAsync(CancellationToken cancellationToken);
     }
+
     public class MapToolDbContext : DbContext, IMapToolDbContext
     {
+        public MapToolDbContext(string databaseName) : base(GetContextOptions(databaseName))
+        {
+
+        }
+
+        public static DbContextOptions<MapToolDbContext> GetContextOptions(string databaseName)
+        {
+            return new DbContextOptionsBuilder<MapToolDbContext>()
+                .UseSqlite($"Data Source={databaseName}.db")
+                .EnableSensitiveDataLogging()
+                .Options;
+        }
         public MapToolDbContext(DbContextOptions<MapToolDbContext> options) : base(options)
         {
             
         }
-        public virtual DbSet<Tile> Tiles { get; set; }
-        public virtual DbSet<MapBridgeTile> MapBridgeTiles { get; set; }
-        public virtual DbSet<SpawnerTile> SpawnerTiles { get; set; }
-        public virtual DbSet<AnimatedTile> AnimatedTiles { get; set; }
-        public virtual DbSet<Map> Maps { get; set; }
-        public virtual DbSet<Palette> Palettes { get; set; }
-        public virtual DbSet<Prefab> Prefabs { get; set; }
-        public virtual DbSet<Project> Projects { get; set; }
-        public virtual DbSet<Tag> Tags { get; set; }
-        public virtual DbSet<TilePlacement> TilePlacements { get; set; }
-        public virtual DbSet<Tilesheet> Tilesheets { get; set; }
+        public virtual DbSet<TileDto> Tiles { get; set; }
+        public virtual DbSet<MapBridgeTileDto> MapBridgeTiles { get; set; }
+        public virtual DbSet<SpawnerTileDto> SpawnerTiles { get; set; }
+        public virtual DbSet<AnimatedTileDto> AnimatedTiles { get; set; }
+        public virtual DbSet<MapDto> Maps { get; set; }
+        public virtual DbSet<PaletteDto> Palettes { get; set; }
+        public virtual DbSet<PrefabDto> Prefabs { get; set; }
+        public virtual DbSet<ProjectDto> Projects { get; set; }
+        public virtual DbSet<TagDto> Tags { get; set; }
+        public virtual DbSet<TilePlacementDto> TilePlacements { get; set; }
+        public virtual DbSet<TilesheetDto> Tilesheets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -60,6 +74,11 @@ namespace MapTool.Infrastructure
         async Task<bool> IMapToolDbContext.SaveChangesAsync(CancellationToken cancellationToken)
         {
             return (await base.SaveChangesAsync(cancellationToken)) > 0;
+        }
+
+        async void IMapToolDbContext.DisposeAsync()
+        {
+            await base.DisposeAsync();
         }
     }
 }

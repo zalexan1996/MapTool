@@ -1,4 +1,7 @@
+using AutoMapper;
 using MapTool.Core.Services;
+using MapTool.Core.Types;
+using MapTool.Domain.Types;
 using MapTool.Infrastructure;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -15,6 +18,9 @@ namespace MapTool.Blazor
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddSingleton<IDatabaseManagementService, DatabaseManagementService>();
+            builder.Services.AddTransient<ProjectService>();
+
+            ConfigureAutomapper(builder.Services);
 
             var app = builder.Build();
 
@@ -36,6 +42,14 @@ namespace MapTool.Blazor
             app.MapFallbackToPage("/_Host");
 
             app.Run();
+        }
+
+        public static void ConfigureAutomapper(IServiceCollection services)
+        {
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.CreateMap<ProjectDto, Project>();
+            }, System.Reflection.Assembly.GetExecutingAssembly());
         }
     }
 }

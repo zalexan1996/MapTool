@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MapTool.Infrastructure.EntityTypeConfigurations
 {
-    public class MapBridgeTileEntityTypeConfiguration : IEntityTypeConfiguration<MapBridgeTile>
+    public class MapBridgeTileEntityTypeConfiguration : IEntityTypeConfiguration<MapBridgeTileDto>
     {
-        public void Configure(EntityTypeBuilder<MapBridgeTile> builder)
+        public void Configure(EntityTypeBuilder<MapBridgeTileDto> builder)
         {
             // InfrastructureExtensionMethods.ConfigureKeyedEntity(builder);
-            builder.ToTable(nameof(MapBridgeTile));
+            builder.ToTable("MapBridgeTiles");
 
             builder.Property(x => x.StartY).IsRequired();
             builder.Property(x => x.StartX).IsRequired();

@@ -1,8 +1,22 @@
 ﻿@page "/ChooseProject"
 
+@inject ProjectService _projectService;
+
 <PageTitle>Choose a Project</PageTitle>
 <h3>Choose a Project</h3>
 
-@code {
+@foreach (var p in Projects)
+{
+    <p>@p.Name</p>
+}
 
+
+@code {
+    List<Project> Projects { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Projects = await _projectService.GetProjects();
+
+    }
 }

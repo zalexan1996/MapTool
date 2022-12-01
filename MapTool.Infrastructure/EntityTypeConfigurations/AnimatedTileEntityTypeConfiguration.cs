@@ -10,10 +10,12 @@ using System.Threading.Tasks;
 
 namespace MapTool.Infrastructure.EntityTypeConfigurations
 {
-    public class AnimatedTileEntityTypeConfiguration : IEntityTypeConfiguration<AnimatedTile>
+    public class AnimatedTileEntityTypeConfiguration : IEntityTypeConfiguration<AnimatedTileDto>
     {
-        public void Configure(EntityTypeBuilder<AnimatedTile> builder)
+        public void Configure(EntityTypeBuilder<AnimatedTileDto> builder)
         {
+            builder.ToTable("AnimatedTiles");
+
             InfrastructureExtensionMethods.ConfigureKeyedEntity(builder);
             InfrastructureExtensionMethods.ConfigureInformationEntity(builder);
 

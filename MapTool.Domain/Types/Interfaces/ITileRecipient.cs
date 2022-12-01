@@ -16,6 +16,6 @@ namespace MapTool.Domain.Types.Interfaces
         /// <summary>
         /// The collection of tiles in use by this recipient.
         /// </summary>
-        public Collection<TilePlacement> TilePlacements { get; set; }
+        public Collection<TilePlacementDto> TilePlacements { get; set; }
     }
 }
