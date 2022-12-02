@@ -1,0 +1,43 @@
+﻿@inject IDatabaseManagementService _dbService;
+
+<div class="col-lg-3 col-m-12 bg-light border border-info m-2 p-2">
+    <h3>Import a database</h3>
+    <div class="form-group my-3">
+        <label class="form-label">Database Name</label>
+        <input @bind="DatabaseName" class="form-control" id="dbNameInput" />
+        <span class="text-danger @(hasValidationErrors ? "" : "d-none")">You must provide a valid database name.</span>
+    </div>
+    <InputFile OnChange="OnUploadFileChange"></InputFile>
+    <button class="btn btn-success my-3" @onclick="OnClick">Upload</button>
+</div>
+
+@code {
+    public string DatabaseName { get; set; }
+    public IBrowserFile UploadedDatabase { get; set; }
+    private bool hasValidationErrors = false;
+
+    private async void OnClick()
+    {
+        // Check for validation errors on the database name.
+        hasValidationErrors = !_dbService.IsNameAcceptable(DatabaseName);
+
+        if (UploadedDatabase == null || hasValidationErrors)
+        {
+            return;
+        }
+
+        var stream = UploadedDatabase.OpenReadStream();
+
+        await _dbService.ImportDatabase(DatabaseName, stream, CancellationToken.None);
+
+        await OnImport.InvokeAsync(DatabaseName);
+    }
+
+    private void OnUploadFileChange(InputFileChangeEventArgs args)
+    {
+        UploadedDatabase = args.File;
+    }
+
+    [Parameter, EditorRequired]
+    public EventCallback<string> OnImport { get; set; }
+}

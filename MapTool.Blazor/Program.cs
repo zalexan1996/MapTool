@@ -17,10 +17,12 @@ namespace MapTool.Blazor
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.AddSingleton<IDatabaseManagementService, DatabaseManagementService>();
-            builder.Services.AddTransient<ProjectService>();
-
             ConfigureAutomapper(builder.Services);
+
+            builder.Services.AddSingleton<IDatabaseManagementService, DatabaseManagementService>();
+
+            builder.Services.AddScoped<IProjectService, ProjectService>();
+
 
             var app = builder.Build();
 
