@@ -23,15 +23,36 @@ namespace MapTool.Core.Services
         }
         public (string name, string path)[] ListDatabases();
         public bool DoesDatabaseExist(string databaseName);
+        public Task<bool> DeleteDatabase(string databasePath);
+
+        public string GetInvalidCharacters()
+        {
+            return ",./?;\"':[]{}!@#$%^&*()-_=+\\| ";
+        }
+        public bool IsNameAcceptable(string name)
+        {
+            return !(string.IsNullOrWhiteSpace(name)
+                || GetInvalidCharacters().Split("").Any(c => name.Contains(c))
+                || DoesDatabaseExist(name));
+        }
+        public delegate void OnDatabaseChanged(string newName, string newPath);
+        event OnDatabaseChanged DatabaseChanged;
     }                  
 
     public class DatabaseManagementService : IDatabaseManagementService
     {
         private readonly string databaseFolderName = "Databases";
 
+        public event IDatabaseManagementService.OnDatabaseChanged DatabaseChanged;
+
         public DatabaseManagementService()
         {
 
+        }
+
+        private string GetDatabasePathFromName(string dbName)
+        {
+            return $"./{databaseFolderName}\\{dbName}.db";
         }
 
         protected void DisposeOldContext()
@@ -44,7 +65,7 @@ namespace MapTool.Core.Services
 
         public async Task<IMapToolDbContext> CreateDatabase(string databaseName, CancellationToken cancellationToken)
         {
-            string dbPath = $"./{databaseFolderName}/{databaseName}";
+            string dbPath = GetDatabasePathFromName(databaseName);
 
             // Don't overwrite an existing database
             if (File.Exists($"{dbPath}.db"))
@@ -64,13 +85,14 @@ namespace MapTool.Core.Services
             DisposeOldContext();
             
             IDatabaseManagementService.CurrentContext = dbContext;
+            DatabaseChanged?.Invoke(databaseName, dbPath);
 
             return dbContext;
         }
 
         public async Task<bool> ImportDatabase(string databaseName, Stream fileStream, CancellationToken cancellationToken)
         {
-            string dbPath = $"{databaseFolderName}/{databaseName}";
+            string dbPath = GetDatabasePathFromName(databaseName);
 
             // Don't overwrite an existing database
             if (File.Exists(dbPath))
@@ -79,7 +101,7 @@ namespace MapTool.Core.Services
             }
 
             // Copy the input file stream to the database folder.
-            using (Stream outputStream = File.OpenWrite($"{databaseFolderName}/{databaseName}.db"))
+            using (Stream outputStream = File.OpenWrite(dbPath))
             {
                 await fileStream.CopyToAsync(outputStream);
             }
@@ -89,7 +111,7 @@ namespace MapTool.Core.Services
 
         public async Task<IMapToolDbContext> LoadDatabase(string databaseName, CancellationToken cancellationToken)
         {
-            string dbPath = $"{databaseFolderName}/{databaseName}";
+            string dbPath = GetDatabasePathFromName(databaseName);
             if (!File.Exists(dbPath))
             {
                 throw new DatabaseNonExistException($"Could not find database '{databaseName}.db' in path ./{databaseFolderName}");
@@ -100,13 +122,14 @@ namespace MapTool.Core.Services
             DisposeOldContext();
 
             IDatabaseManagementService.CurrentContext = dbContext;
+            DatabaseChanged?.Invoke(databaseName, dbPath);
 
             return dbContext;
         }
 
         public bool DoesDatabaseExist(string databaseName)
         {
-            return Directory.GetFiles($"./{databaseFolderName}", $"{databaseName}.db").Any();
+            return File.Exists(GetDatabasePathFromName(databaseName));
         }
 
         (string name, string path)[] IDatabaseManagementService.ListDatabases()
@@ -115,5 +138,32 @@ namespace MapTool.Core.Services
 
             return files.Select(x => (Regex.Match(x, $"(?<=({databaseFolderName}(\\\\|/))).*(?=(\\.db))").Groups[0].Value, x)).ToArray();
         }
+
+        public async Task<bool> DeleteDatabase(string databasePath)
+        {
+            if (!File.Exists(databasePath))
+            {
+                throw new DatabaseNonExistException("Could not delete the database because it does not exist.");
+            }
+
+            if (IDatabaseManagementService.CurrentContext?.DatabasePath == databasePath)
+            {
+                return false;
+            }
+
+            try
+            {
+                File.Delete(databasePath);
+                File.Delete($"{databasePath}-wal");
+                File.Delete($"{databasePath}-shm");
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }

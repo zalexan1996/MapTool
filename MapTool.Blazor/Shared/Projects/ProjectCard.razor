@@ -1,0 +1,41 @@
+﻿@inject IProjectService _projectService;
+
+<div class="card col-xl-3 col-lg-4 col-m-12 m-3">
+    <div class="card-body">
+        <h5 class="card-title">@Project.Name</h5>
+        <div class="row">
+            <h6 class="card-subtitle text-muted col-6">Author: @Project.Author</h6>
+            <h6 class="card-subtitle text-muted col-6">Version: @Project.VersionString</h6>
+        </div>
+        <p class="my-3">
+        @Project.Description
+        </p>
+        <div class="row justify-content-between">
+            <button class="col-auto py-2 px-3 btn btn-sm btn-success">Use</button>
+            <button class="col-auto py-2 px-3 btn btn-sm btn-danger" @onclick="OnDeleteClick">Delete</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public Project Project { get; set; }
+
+
+    private async void OnDeleteClick()
+    {
+        // TODO: Show a confirmation modal.
+
+        if (!await _projectService.DeleteProject(Project.Name))
+        {
+            Console.WriteLine("Failed to delete project.");
+            // TODO: Send Toast.
+            return;
+        }
+
+        await ProjectDeletedCallback.InvokeAsync();
+    }
+
+    [Parameter, EditorRequired]
+    public EventCallback ProjectDeletedCallback { get; set; }
+}

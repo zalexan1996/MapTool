@@ -33,20 +33,5 @@ namespace MapTool.Core.Types
         /// All the maps that are a part of this project.
         /// </summary>
         public Collection<Map> Maps { get; set; } = new();
-
-        /// <summary>
-        /// All tilesheets used in this project.
-        /// </summary>
-        public Collection<Tilesheet> Tilesheets { get; set; } = new();
-
-        /// <summary>
-        /// All prefabs used in this project.
-        /// </summary>
-        public Collection<Prefab> Prefabs { get; set; } = new();
-
-        /// <summary>
-        /// All tile palettes used in this project.
-        /// </summary>
-        public Collection<Palette> Palettes { get; set; } = new();
     }
 }

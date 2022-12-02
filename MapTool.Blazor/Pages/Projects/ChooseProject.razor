@@ -1,0 +1,49 @@
+﻿@page "/ChooseProject"
+
+@inject IProjectService _projectService;
+
+<PageTitle>Choose a Project</PageTitle>
+<h3>Choose a Project</h3>
+<blockquote>
+    <h5>Some helpful information</h5>
+    A project represents a game. Assets like tilesheets, animated sprites, and prefabs are not tied to specific projects. However, maps are. 
+    This tool lets you reuse assets for different games and to isolate maps to specific projects.
+</blockquote>
+
+<blockquote class="text-danger">
+   <span class="oi oi-star"></span>
+    Deleting a project will delete all maps associated with that project.
+    <span class="oi oi-star"></span>
+</blockquote>
+
+<div class="row">
+    @foreach (var p in Projects)
+    {
+        <MapTool.Blazor.Shared.Projects.ProjectCard Project="@p" ProjectDeletedCallback="OnProjectDeleted"/>
+    }
+</div>
+<div class="row m-4">
+    <NavLink class="btn btn-success col-auto" href="CreateProject" Match="NavLinkMatch.All">
+        <div class="card-body">
+            <span class="oi oi-plus"></span>
+            <h5>Create a Project</h5>
+        </div>
+    </NavLink>
+</div>
+
+
+
+@code {
+    IEnumerable<Project> Projects { get; set; } = new List<Project>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Projects = await _projectService.GetProjects();
+    }
+
+    private async void OnProjectDeleted()
+    {
+        Projects = await _projectService.GetProjects();
+        StateHasChanged();
+    }
+}

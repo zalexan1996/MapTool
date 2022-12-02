@@ -1,0 +1,48 @@
+﻿@inject IDatabaseManagementService _dbService;
+
+<div class="col-lg-3 col-m-12 bg-light border border-info m-2 p-2 ">
+    <h3>Create a database</h3>
+    <h5>Criteria for creating a database:</h5>
+    <ol>
+        <li>There must not be a database with the same name.</li>
+        <li>No special characters or spaces.</li>
+    </ol>
+
+    <div>
+        <div class="form-group">
+            <label class="form-label">Database Name</label>
+            <input @bind="DatabaseName" class="form-control" id="dbNameInput" />
+            <span class="text-danger @(hasValidationErrors ? "" : "d-none")">You must provide a valid database name.</span>
+        </div>
+        <button class="btn btn-success my-3" @onclick="OnClick">
+            Create
+        </button>
+    </div>
+</div>
+
+@code {
+    public string DatabaseName { get; set; }
+    private bool hasValidationErrors = false;
+
+    private async void OnClick()
+    {
+
+        // Check for validation errors on the database name.
+        hasValidationErrors = !_dbService.IsNameAcceptable(DatabaseName);
+
+        // Return prematurely if there are validation errors.
+        if (hasValidationErrors)
+        {
+            return;
+        }
+
+        // Create the database.
+        var context = await _dbService.CreateDatabase(DatabaseName, CancellationToken.None);
+
+        // Alert listeners that the database has been created.
+        await OnCreate.InvokeAsync(DatabaseName);
+    }
+
+    [Parameter, EditorRequired]
+    public EventCallback<string> OnCreate { get; set; }
+}

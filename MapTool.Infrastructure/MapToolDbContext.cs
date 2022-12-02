@@ -24,21 +24,23 @@ namespace MapTool.Infrastructure
         public DbSet<TilesheetDto> Tilesheets { get; set; }
 
         public bool SaveChanges();
-        public void DisposeAsync();
+        public ValueTask DisposeAsync();
         public Task<bool> SaveChangesAsync(CancellationToken cancellationToken);
+        public string DatabasePath { get; }
     }
 
     public class MapToolDbContext : DbContext, IMapToolDbContext
     {
-        public MapToolDbContext(string databaseName) : base(GetContextOptions(databaseName))
+        private readonly string _databasePath;
+        public MapToolDbContext(string databasePath) : base(GetContextOptions(databasePath))
         {
-
+            _databasePath = databasePath;
         }
 
-        public static DbContextOptions<MapToolDbContext> GetContextOptions(string databaseName)
+        public static DbContextOptions<MapToolDbContext> GetContextOptions(string databasePath)
         {
             return new DbContextOptionsBuilder<MapToolDbContext>()
-                .UseSqlite($"Data Source={databaseName}.db")
+                .UseSqlite($"Data Source={databasePath}")
                 .EnableSensitiveDataLogging()
                 .Options;
         }
@@ -58,10 +60,13 @@ namespace MapTool.Infrastructure
         public virtual DbSet<TilePlacementDto> TilePlacements { get; set; }
         public virtual DbSet<TilesheetDto> Tilesheets { get; set; }
 
+        public string DatabasePath => _databasePath;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(System.Reflection.Assembly.GetExecutingAssembly());
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             
@@ -71,14 +76,17 @@ namespace MapTool.Infrastructure
         {
             return base.SaveChanges() > 0;
         }
+
         async Task<bool> IMapToolDbContext.SaveChangesAsync(CancellationToken cancellationToken)
         {
             return (await base.SaveChangesAsync(cancellationToken)) > 0;
         }
 
-        async void IMapToolDbContext.DisposeAsync()
+        async ValueTask IMapToolDbContext.DisposeAsync()
         {
+            await base.Database.CloseConnectionAsync();
             await base.DisposeAsync();
+
         }
     }
 }
