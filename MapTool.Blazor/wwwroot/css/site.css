@@ -67,3 +67,11 @@ a, .btn-link {
 .form-group {
     margin-top: 1rem;
 }
+
+.badge {
+    border: solid 1px solid black;
+    border-radius: 4px;
+    background: #0dcaf0;
+    color: white;
+    font-weight: 600;
+}

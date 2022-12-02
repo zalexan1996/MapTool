@@ -39,11 +39,17 @@
     protected override async Task OnInitializedAsync()
     {
         Projects = await _projectService.GetProjects();
+
+        _projectService.ProjectChanged += OnProjectChanged;
     }
 
     private async void OnProjectDeleted()
     {
         Projects = await _projectService.GetProjects();
+        StateHasChanged();
+    }
+    private async void OnProjectChanged(string name)
+    {
         StateHasChanged();
     }
 }

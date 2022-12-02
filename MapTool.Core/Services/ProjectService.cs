@@ -15,19 +15,49 @@ namespace MapTool.Core.Services
 {
     public interface IProjectService
     {
+        public static ProjectDto? ActiveProject { get; protected set; } = null;
+
+        public Task<bool> ActivateProject(string name);
         Task<IEnumerable<Project>> GetProjects();
         Task<bool> CreateProject(string name, string author, string description, string version = "0.0.1");
         Task<bool> DeleteProject(string name);
+
+        public delegate void OnProjectChanged(string newName);
+        event OnProjectChanged ProjectChanged;
     }
 
     public class ProjectService : IProjectService
     {
         private readonly IDatabaseManagementService _dbService;
         private readonly IMapper _mapper;
+
+        public event IProjectService.OnProjectChanged ProjectChanged;
+
         public ProjectService(IDatabaseManagementService dbService, IMapper mapper)
         {
             _dbService = dbService;
             _mapper = mapper;
+        }
+
+        public async Task<bool> ActivateProject(string name)
+        {
+            if (IDatabaseManagementService.CurrentContext == null)
+            {
+                return false;
+            }
+
+            var project = await IDatabaseManagementService.CurrentContext.Projects.SingleOrDefaultAsync(p => p.Name == name);
+
+            if (project == null)
+            {
+                return false;
+            }
+
+            IProjectService.ActiveProject = project;
+
+            ProjectChanged.Invoke(project.Name);
+
+            return true;
         }
 
         public async Task<IEnumerable<Project>> GetProjects()
@@ -80,5 +110,6 @@ namespace MapTool.Core.Services
 
             return await IDatabaseManagementService.CurrentContext.SaveChangesAsync(CancellationToken.None);
         }
+
     }
 }
