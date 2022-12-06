@@ -75,3 +75,12 @@ a, .btn-link {
     color: white;
     font-weight: 600;
 }
+
+
+.flex-header {
+    height: 125px;
+}
+
+.flex-body {
+    height: calc(100vh - 125px)
+}

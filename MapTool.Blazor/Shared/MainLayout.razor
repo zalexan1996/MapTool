@@ -1,14 +1,27 @@
 ﻿@inherits LayoutComponentBase
+@inject IDatabaseManagementService _dbService;
+@inject IProjectService _projectService;
 
 <PageTitle>MapTool.Blazor</PageTitle>
 
-<div class="page">
+<div class="page d-flex">
     <div class="sidebar">
         <NavMenu />
     </div>
 
-    <main>
-        <div class="top-row px-4">
+    <main style="flex:1">
+        <div class="top-row px-4 justify-content-between flex-header">
+            <div class="row mt-3">
+                @if(ActiveDatabase != null)
+                {
+                    <p class="col-auto mx-2">@ActiveDatabase</p>
+                }
+                @if(ActiveProject != null)
+                {
+                    <span class="col-auto oi oi-caret-right"></span>
+                    <p class="col-auto mx-2">@ActiveProject</p>
+                }
+            </div>
             <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
         </div>
 
@@ -17,3 +30,40 @@
         </article>
     </main>
 </div>
+
+@code {
+    public string? ActiveDatabase { get; set; }
+    public string? ActiveProject { get; set; }
+
+    protected override void OnInitialized()
+    {
+        _dbService.DatabaseChanged += OnDatabaseChanged;
+        _projectService.ProjectChanged += OnProjectChanged;
+
+        ActiveDatabase = string.IsNullOrEmpty(_dbService.CurrentDatabaseName) ? null : _dbService.CurrentDatabaseName;
+        ActiveProject = string.IsNullOrEmpty(IProjectService.ActiveProject?.Name) ? null : IProjectService.ActiveProject.Name;
+
+        base.OnInitialized();
+    }
+
+    private void OnDatabaseChanged(string newName, string newPath)
+    {
+        ActiveDatabase = string.IsNullOrEmpty(_dbService.CurrentDatabaseName) ? null : _dbService.CurrentDatabaseName;
+        ActiveProject = string.IsNullOrEmpty(IProjectService.ActiveProject?.Name) ? null : IProjectService.ActiveProject.Name;
+
+        InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
+    }
+
+    private void OnProjectChanged(string newName)
+    {
+        ActiveProject = string.IsNullOrEmpty(IProjectService.ActiveProject?.Name) ? null : IProjectService.ActiveProject.Name;
+
+        InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
+    }
+}

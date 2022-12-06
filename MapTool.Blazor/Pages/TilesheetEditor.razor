@@ -1,6 +1,38 @@
 ﻿@page "/TilesheetEditor"
+@using MapTool.Blazor.Shared.EditorComponents.TreeView;
+
 <h3>Tilesheet Editor</h3>
-
+<div class="flex-body row">
+        <div class="col-3 border">
+            <TreeView @ref="TreeView" Items="TreeViewItems"/>
+        </div>
+        <div class="col-6 border">
+            <div class="border">
+                Toolbar
+            </div>
+            Active Tilesheet
+        </div>
+        <div class="col-3 border">
+            Properties Explorer
+        </div>
+</div>
 @code {
+    public TreeView? TreeView { get; set; }
 
+    public List<TreeViewItemInfo> TreeViewItems { get; set; } = new()
+    {
+        new TreeViewItemInfo("Links Awakening")
+        {
+            Children = new()
+            {
+                new TreeViewItemInfo("IdleUp", "grid-two-up"),
+                new TreeViewItemInfo("IdleDown", "grid-two-up"),
+                new TreeViewItemInfo("IdleLeft", "grid-two-up"),
+                new TreeViewItemInfo("IdleRight", "grid-two-up"),
+            }
+        },
+        new TreeViewItemInfo("Overworld 1"),
+        new TreeViewItemInfo("Overworld 2"),
+        new TreeViewItemInfo("Overworld 3")
+    };
 }

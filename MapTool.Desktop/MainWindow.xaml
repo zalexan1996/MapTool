@@ -7,7 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Click="Button_Click" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Click="Button_Click" 
+                HorizontalAlignment="Center" VerticalAlignment="Center">
+            Hello
+        </Button>
+        <Button Grid.Column="2" Click="Button_Click" 
+                HorizontalAlignment="Center" VerticalAlignment="Bottom">
             Hello
         </Button>
     </Grid>

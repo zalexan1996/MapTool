@@ -13,6 +13,8 @@ namespace MapTool.Core.Services
     public interface IDatabaseManagementService
     {
         public static IMapToolDbContext? CurrentContext { get; protected set; }
+        public string CurrentDatabasePath { get; }
+        public string CurrentDatabaseName { get; }
 
         public Task<IMapToolDbContext> CreateDatabase(string databaseName, CancellationToken cancellationToken);
         public Task<IMapToolDbContext> LoadDatabase(string databaseName, CancellationToken cancellationToken);
@@ -42,6 +44,12 @@ namespace MapTool.Core.Services
     public class DatabaseManagementService : IDatabaseManagementService
     {
         private readonly string databaseFolderName = "Databases";
+        private string _databasePath = "";
+        private string _databaseName = "";
+
+        public string CurrentDatabasePath => _databasePath;
+
+        public string CurrentDatabaseName => _databaseName;
 
         public event IDatabaseManagementService.OnDatabaseChanged DatabaseChanged;
 
@@ -85,6 +93,9 @@ namespace MapTool.Core.Services
             DisposeOldContext();
             
             IDatabaseManagementService.CurrentContext = dbContext;
+            _databaseName = databaseName;
+            _databasePath = dbPath;
+
             DatabaseChanged?.Invoke(databaseName, dbPath);
 
             return dbContext;
@@ -122,6 +133,10 @@ namespace MapTool.Core.Services
             DisposeOldContext();
 
             IDatabaseManagementService.CurrentContext = dbContext;
+
+            _databaseName = databaseName;
+            _databasePath = dbPath;
+
             DatabaseChanged?.Invoke(databaseName, dbPath);
 
             return dbContext;
@@ -146,7 +161,7 @@ namespace MapTool.Core.Services
                 throw new DatabaseNonExistException("Could not delete the database because it does not exist.");
             }
 
-            if (IDatabaseManagementService.CurrentContext?.DatabasePath == databasePath)
+            if (_databaseName == databasePath)
             {
                 return false;
             }

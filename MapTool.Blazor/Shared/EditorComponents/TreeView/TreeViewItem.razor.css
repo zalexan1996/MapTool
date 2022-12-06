@@ -1,0 +1,37 @@
+﻿
+.tree-view-list {
+    list-style: none;
+}
+
+.tree-view-child-list {
+    list-style: none;
+    margin-bottom: 0px;
+    margin-top:0px;
+}
+
+.tree-view-item {
+    margin-top: 10px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+.expander-icon {
+    color: #7e7e7e;
+    margin: 0px 10px 0px 0px;
+}
+
+.horizontal-rule {
+    margin: 0px 0px 20px 0px;
+}
+
+.item-text {
+    margin: 0px 0px 00px 0px;
+}
+
+.tree-view-item:checked {
+    background-color: #dedede;
+}
+
+.selected {
+    background-color: #d9e3e5;
+}

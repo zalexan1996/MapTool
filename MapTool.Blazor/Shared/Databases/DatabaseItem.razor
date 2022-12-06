@@ -52,7 +52,7 @@
 
     protected override void OnParametersSet()
     {
-        IsDatabaseInUse = IDatabaseManagementService.CurrentContext?.DatabasePath == DatabasePath;
+        IsDatabaseInUse = _dbService?.CurrentDatabasePath == DatabasePath;
         StateHasChanged();
         base.OnParametersSet();
     }

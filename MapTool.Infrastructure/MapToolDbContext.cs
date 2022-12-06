@@ -26,15 +26,13 @@ namespace MapTool.Infrastructure
         public bool SaveChanges();
         public ValueTask DisposeAsync();
         public Task<bool> SaveChangesAsync(CancellationToken cancellationToken);
-        public string DatabasePath { get; }
     }
 
     public class MapToolDbContext : DbContext, IMapToolDbContext
     {
-        private readonly string _databasePath;
         public MapToolDbContext(string databasePath) : base(GetContextOptions(databasePath))
         {
-            _databasePath = databasePath;
+
         }
 
         public static DbContextOptions<MapToolDbContext> GetContextOptions(string databasePath)
@@ -59,8 +57,6 @@ namespace MapTool.Infrastructure
         public virtual DbSet<TagDto> Tags { get; set; }
         public virtual DbSet<TilePlacementDto> TilePlacements { get; set; }
         public virtual DbSet<TilesheetDto> Tilesheets { get; set; }
-
-        public string DatabasePath => _databasePath;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
