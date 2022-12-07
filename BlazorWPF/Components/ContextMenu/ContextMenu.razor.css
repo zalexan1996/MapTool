@@ -1,0 +1,15 @@
+﻿.context-menu {
+    position: absolute;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #fcfcfc;
+
+    border-radius: 10px 10px;
+    box-shadow: rgba(0, 0, 0, 0.2) 1px 1px;
+}
+
+.context-menu > ul {
+    list-style: none;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}

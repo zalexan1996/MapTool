@@ -1,0 +1,64 @@
+﻿@inherits BlazorWPF.Common.BlazorWPFComponent
+@using BlazorWPF.Components.IconifyIcon;
+
+<li class="tree-view-item">
+    <div class="d-flex @(IsSelected ? "selected" : "")">
+        @if (ChildContent != null)
+        {
+            <IconifyIcon
+                IconName="@(IsExpanded ? "caret-bottom" : "caret-right")"
+                OnMouseDown="onCollapseToggleMouseButtonDown" />
+        }
+        <div class="w-100" @onclick="onSelectCick" @oncontextmenu="onRightClick" @oncontextmenu:preventDefault="true">
+            <IconifyIcon IconName="@HeaderIcon" />
+            <span class="item-text" title="@ToolTip">@Header</span>
+        </div>
+    </div>
+    <hr class="horizontal-rule" />
+                            
+    @if(IsExpanded)
+    {
+        <ul class="tree-view-child-list">
+            @ChildContent
+        </ul>
+    }
+</li>
+
+@code {
+    // 
+
+    [Parameter, EditorRequired]
+    public TreeView.TreeView? Parent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; } = null;
+
+    protected void onCollapseToggleMouseButtonDown()
+    {
+        IsExpanded = !IsExpanded;
+        StateHasChanged();
+    }
+
+    protected void onSelectCick()
+    {
+        IsSelected = !IsSelected;
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        Parent?.RegisterChild(this);
+
+        base.OnInitialized();
+    }
+
+    protected void onRightClick(MouseEventArgs e)
+    {
+        var contextMenu = BlazorWPF.Common.BlazorWPFLayout.ContextMenu;
+
+        if (contextMenu != null)
+        {
+            contextMenu.Show(e.ClientX, e.ClientY, ContextMenu);
+        }
+    }
+}

@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Components.Web;
+<iconify-icon @onmousedown="OnMouseDown" inline
+    width="@Width" 
+    height="@Height" 
+    class="expander-icon" 
+    icon="@IconSet:@IconName"
+    style="
+color: @Color;
+margin: @Margin;
+"/>
+
+@code {
+    [Parameter]
+    public string IconSet { get; set; } = "oi";
+
+    [Parameter]
+    public string IconName { get; set; } = "eye";
+
+    [Parameter]
+    public int Width { get; set; } = 12;
+
+    [Parameter]
+    public int Height { get; set; } = 12;
+
+    [Parameter]
+    public string Color { get; set; } = "#000000";
+
+    [Parameter]
+    public string Margin { get; set; } = "0px 10px 0px 0px";
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnMouseDown { get; set; }
+}

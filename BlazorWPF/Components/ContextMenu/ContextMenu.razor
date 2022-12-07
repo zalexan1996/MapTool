@@ -1,0 +1,10 @@
+﻿@inherits BlazorWPF.Common.BlazorWPFComponent
+
+@if(IsVisible)
+{
+    <div class="context-menu" style="left: @(X)px; top: @(Y)px;">
+        <ul>
+            @Body
+        </ul>
+    </div>
+}

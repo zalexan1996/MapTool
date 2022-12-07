@@ -8,5 +8,10 @@ namespace MapTool.Core.Types
 {
     public class Tag
     {
+        /// <inheritdoc/>
+        public string Name { get; set; } = string.Empty;
+
+        /// <inheritdoc/>
+        public string Description { get; set; } = string.Empty;
     }
 }

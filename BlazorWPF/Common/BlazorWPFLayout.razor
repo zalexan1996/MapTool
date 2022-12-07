@@ -1,0 +1,23 @@
+﻿@inherits ComponentBase
+
+<div class="page d-flex" @onmousedown="onMouseDown">
+    @ChildContent
+<BlazorWPF.Components.ContextMenu.ContextMenu @ref="ContextMenu"/>
+</div>
+
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    public static BlazorWPF.Components.ContextMenu.ContextMenu? ContextMenu { get; set; }
+
+    private void onMouseDown(MouseEventArgs e)
+    {
+        // If left click, hide the context menu if it is open.
+        if (e.Button == 0)
+        {
+            ContextMenu?.Hide();
+        }
+    }
+}

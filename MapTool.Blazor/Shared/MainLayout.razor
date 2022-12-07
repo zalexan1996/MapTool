@@ -3,33 +3,33 @@
 @inject IProjectService _projectService;
 
 <PageTitle>MapTool.Blazor</PageTitle>
+<BlazorWPF.Common.BlazorWPFLayout>
 
-<div class="page d-flex">
-    <div class="sidebar">
-        <NavMenu />
+<div class="sidebar">
+    <NavMenu />
+</div>
+
+<main style="flex:1">
+    <div class="top-row px-4 justify-content-between flex-header">
+        <div class="row mt-3">
+            @if(ActiveDatabase != null)
+            {
+                <p class="col-auto mx-2">@ActiveDatabase</p>
+            }
+            @if(ActiveProject != null)
+            {
+                <span class="col-auto oi oi-caret-right"></span>
+                <p class="col-auto mx-2">@ActiveProject</p>
+            }
+        </div>
+        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
     </div>
 
-    <main style="flex:1">
-        <div class="top-row px-4 justify-content-between flex-header">
-            <div class="row mt-3">
-                @if(ActiveDatabase != null)
-                {
-                    <p class="col-auto mx-2">@ActiveDatabase</p>
-                }
-                @if(ActiveProject != null)
-                {
-                    <span class="col-auto oi oi-caret-right"></span>
-                    <p class="col-auto mx-2">@ActiveProject</p>
-                }
-            </div>
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+    <article class="content px-4">
+        @Body
+    </article>
+</main>
+</BlazorWPF.Common.BlazorWPFLayout>
 
 @code {
     public string? ActiveDatabase { get; set; }
@@ -45,6 +45,7 @@
 
         base.OnInitialized();
     }
+
 
     private void OnDatabaseChanged(string newName, string newPath)
     {

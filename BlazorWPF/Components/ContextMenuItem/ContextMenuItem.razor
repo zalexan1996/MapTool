@@ -1,0 +1,17 @@
+﻿<li class="menu-item" title="ToolTip">
+    <div>
+        <BlazorWPF.Components.IconifyIcon.IconifyIcon IconName="@Icon" Margin="0px 2px 0px 2px"/>
+        <span>@Header</span>
+    </div>
+</li>
+
+@code {
+    [Parameter, EditorRequired]
+    public string Header { get; set; } = "";
+
+    [Parameter]
+    public string Icon { get; set; } = "eye";
+
+    [Parameter]
+    public string ToolTip { get; set; } = "";
+}

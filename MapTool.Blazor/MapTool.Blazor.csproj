@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BlazorWPF\BlazorWPF.csproj" />
     <ProjectReference Include="..\MapTool.Core\MapTool.Core.csproj" />
     <ProjectReference Include="..\MapTool.Infrastructure\MapTool.Infrastructure.csproj" />
   </ItemGroup>
@@ -14,8 +15,6 @@
   <ItemGroup>
     <Folder Include="Databases\" />
     <Folder Include="Filters\" />
-    <Folder Include="Shared\EditorComponents\Interfaces\" />
-    <Folder Include="Shared\EditorComponents\TreeViewItem\" />
     <Folder Include="TagHelpers\" />
   </ItemGroup>
 

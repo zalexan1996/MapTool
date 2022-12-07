@@ -1,10 +1,41 @@
 ﻿@page "/TilesheetEditor"
-@using MapTool.Blazor.Shared.EditorComponents.TreeView;
+@using BlazorWPF.Components.TreeView;
+@using BlazorWPF.Components.TreeViewItem;
 
 <h3>Tilesheet Editor</h3>
 <div class="flex-body row">
         <div class="col-3 border">
-            <TreeView @ref="TreeView" Items="TreeViewItems"/>
+            <TreeView @ref="TreeView">
+                @foreach(var tilesheet in TileSheets)
+                {
+                    <TreeViewItem Parent="TreeView" 
+                        Header="@tilesheet.Name" 
+                        ToolTip="@tilesheet.Description" 
+                        HeaderIcon="grid-two-up" 
+                        Tag="tilesheet">
+                        <ContextMenu>
+                           <ContextMenuItem Header="Item 1"/>
+                            <ContextMenuItem Header="Item 2" />
+                            <ContextMenuItem Header="Item 3" />
+                        </ContextMenu>
+                        <ChildContent>
+                            @foreach(var tile in tilesheet.Tiles)
+                            {
+                                <TreeViewItem Parent="TreeView" 
+                                    Header="@tile.Name" 
+                                    ToolTip="@tilesheet.Description" 
+                                    HeaderIcon="image" 
+                                    Tag="tile">
+                                    <ContextMenu>
+                                        <ContextMenuItem Header="Item 4" />
+                                        <ContextMenuItem Header="Item 5" />
+                                    </ContextMenu>
+                                    </TreeViewItem>
+                            }
+                        </ChildContent>
+                    </TreeViewItem>
+                }
+            </TreeView>
         </div>
         <div class="col-6 border">
             <div class="border">
@@ -16,23 +47,29 @@
             Properties Explorer
         </div>
 </div>
+
 @code {
     public TreeView? TreeView { get; set; }
 
-    public List<TreeViewItemInfo> TreeViewItems { get; set; } = new()
+    public List<Tilesheet> TileSheets { get; set; } = new()
     {
-        new TreeViewItemInfo("Links Awakening")
+        new Tilesheet("Links Awakening Link", "The player tilesheet from Links Awakening", "la_link.png")
         {
-            Children = new()
+            Tiles = new()
             {
-                new TreeViewItemInfo("IdleUp", "grid-two-up"),
-                new TreeViewItemInfo("IdleDown", "grid-two-up"),
-                new TreeViewItemInfo("IdleLeft", "grid-two-up"),
-                new TreeViewItemInfo("IdleRight", "grid-two-up"),
+                new("IdleUp", "IdleUp - 1", 0, 0, 16, 16),
+                new("IdleDown", "IdleDown - 1", 16, 0, 16, 16),
+                new("IdleLeft", "IdleLeft - 1", 32, 0, 16, 16),
+                new("IdleRight", "IdleRight - 1", 48, 0, 16, 16)
             }
         },
-        new TreeViewItemInfo("Overworld 1"),
-        new TreeViewItemInfo("Overworld 2"),
-        new TreeViewItemInfo("Overworld 3")
+        new Tilesheet("Overworld1", "Overworld Section 1", "overworld1.png"),
+        new Tilesheet("Overworld2", "Overworld Section 2", "overworld2.png"),
+        new Tilesheet("Overworld3", "Overworld Section 3", "overworld3.png"),
     };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
 }
