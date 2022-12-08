@@ -51,7 +51,7 @@ namespace BlazorWPF.Components.TreeViewItem
             {
                 return _isExpanded;
             }
-            protected set
+            set
             {
                 _isExpanded = value;
 

@@ -5,6 +5,25 @@
 <h3>Tilesheet Editor</h3>
 <div class="flex-body row">
         <div class="col-3 border">
+            <Toolbar>
+                <div class="btn-group">
+                    <ToolbarButton ToolTip="Import Spritesheet">
+                        <IconifyIcon IconName="file" Width="16" Height="16" Margin="4px 4px 4px 4px" />
+                    </ToolbarButton>
+                    <ToolbarButton ToolTip="New Folder">
+                        <IconifyIcon IconName="folder" Width="16" Height="16" Margin="4px 4px 4px 4px" />
+                    </ToolbarButton>
+                </div>
+                <VerticalSeparator/>
+            <div class="btn-group">
+                <ToolbarButton ToolTip="Expand All" OnClick="onExpandAll">
+                    <IconifyIcon IconName="expand-left" Width="16" Height="16" Margin="4px 4px 4px 4px" />
+                </ToolbarButton>
+                <ToolbarButton ToolTip="Collapse All" OnClick="onCollapseAll">
+                    <IconifyIcon IconName="expand-right" Width="16" Height="16" Margin="4px 4px 4px 4px" />
+                </ToolbarButton>
+                </div>
+            </Toolbar>
             <TreeView @ref="TreeView">
                 @foreach(var tilesheet in TileSheets)
                 {
@@ -12,9 +31,10 @@
                         Header="@tilesheet.Name" 
                         ToolTip="@tilesheet.Description" 
                         HeaderIcon="grid-two-up" 
-                        Tag="tilesheet">
+                        Tag="tilesheet"
+                        ShowCollapseIndicator="@tilesheet.Tiles.Any()">
                         <ContextMenu>
-                           <ContextMenuItem Header="Item 1"/>
+                            <ContextMenuItem Header="Item 1"/>
                             <ContextMenuItem Header="Item 2" />
                             <ContextMenuItem Header="Item 3" />
                         </ContextMenu>
@@ -71,5 +91,14 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
+    }
+
+    protected void onCollapseAll()
+    {
+        TreeView?.CollapseAll();
+    }
+    protected void onExpandAll()
+    {
+        TreeView?.ExpandAll();
     }
 }

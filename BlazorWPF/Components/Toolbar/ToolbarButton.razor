@@ -1,0 +1,12 @@
+﻿@inherits BlazorWPF.Common.BlazorWPFComponent
+
+<button class="btn btn-sm button btn-outline-primary" @onclick="OnClick" title="@ToolTip">
+    @ChildContent
+</button>
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+}

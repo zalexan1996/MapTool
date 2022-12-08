@@ -11,9 +11,7 @@ namespace BlazorWPF.Components.TreeView
 {
     public partial class TreeView
     {
-        [Parameter]
-        public IEnumerable<TreeViewItem.TreeViewItem> Items { get; set; } = new List<TreeViewItem.TreeViewItem>();
-
+        private List<TreeViewItem.TreeViewItem> _items = new List<TreeViewItem.TreeViewItem>();
         public TreeViewItem.TreeViewItem? SelectedItem
         {
             get
@@ -40,9 +38,22 @@ namespace BlazorWPF.Components.TreeView
         }
         private TreeViewItem.TreeViewItem ?_selectedItem;
 
+        public void CollapseAll()
+        {
+            _items.Where(i => i.IsExpanded)
+                .ToList()
+                .ForEach(i => i.IsExpanded = false);
+        }
+        public void ExpandAll()
+        {
+            _items.Where(i => !i.IsExpanded)
+                .ToList()
+                .ForEach(i => i.IsExpanded = true);
+        }
 
         public void RegisterChild(TreeViewItem.TreeViewItem item)
         {
+            _items.Add(item);
             item.SelectedEvent += onTreeViewItemSelected;
         }
 

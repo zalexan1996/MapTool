@@ -3,7 +3,7 @@
 
 <li class="tree-view-item">
     <div class="d-flex @(IsSelected ? "selected" : "")">
-        @if (ChildContent != null)
+        @if (ShowCollapseIndicator && ChildContent != null)
         {
             <IconifyIcon
                 IconName="@(IsExpanded ? "caret-bottom" : "caret-right")"
@@ -25,10 +25,11 @@
 </li>
 
 @code {
-    // 
-
     [Parameter, EditorRequired]
     public TreeView.TreeView? Parent { get; set; }
+
+    [Parameter]
+    public bool ShowCollapseIndicator { get; init; } = true;
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; } = null;
